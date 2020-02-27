@@ -6,6 +6,7 @@ entries=[]  # a list to store quotes
   
 #Loop all history pages
 for n in range(1,88):
+    print(f"Querying Page: {n}")
     URL = f"https://freemojilottery.com/history/page/{n}"
     r = requests.get(URL)   
     soup = BeautifulSoup(r.content, 'html5lib') 
@@ -33,4 +34,4 @@ with open(filename, 'w') as f:
     w = csv.DictWriter(f,['timestamp','value']) 
     w.writeheader()
     for e in entries: 
-        w.writerow(e) 
+        w.writerow(e)
