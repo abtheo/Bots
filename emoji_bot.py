@@ -11,7 +11,7 @@ with open(str(pathlib.Path(__file__).parent) + '/config.json') as config_file:
     config = json.load(config_file)
 
 #Coding with emojis LOL
-winners = "😍😜💩🐧🖕"
+winners = "😍😜💩🐧😂"
 
 #Init and connect to emoji homepage
 driver = webdriver.Chrome(ChromeDriverManager().install())
