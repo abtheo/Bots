@@ -16,9 +16,11 @@ config = ""
 with open(str(pathlib.Path(__file__).parent) + '/config.json') as config_file:
     config = json.load(config_file)
         
-#Init and connect to homepage
-driver = webdriver.Chrome(ChromeDriverManager().install())
-driver.implicitly_wait(5)   
+#Load Firefox profile
+profile = webdriver.FirefoxProfile("C:/Users/GE60 2PE/AppData/Roaming/Mozilla/Firefox/Profiles/wqatwvdj.default-release")
+driver = webdriver.Firefox(firefox_profile=profile,executable_path="D:/Bots/bin/geckodriver.exe")
+
+#Get
 driver.get("https://lovefreelotto.com/ticket.php")
 
 #Let page load
@@ -51,5 +53,7 @@ while counter < 14:
     sleep(8)
     driver.find_element_by_css_selector("button#submitButton").click()
 
-
+#Close and exit
+driver.close()
+exit()
 

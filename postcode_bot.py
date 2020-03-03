@@ -10,9 +10,10 @@ import random
 postcode = 'SK10 3PX'
 
 #Init and connect to postcode homepage
-driver = webdriver.Chrome(ChromeDriverManager().install())
-driver.implicitly_wait(10)
-driver.set_page_load_timeout(10)
+#Load Firefox profile
+profile = webdriver.FirefoxProfile("C:/Users/GE60 2PE/AppData/Roaming/Mozilla/Firefox/Profiles/wqatwvdj.default-release")
+driver = webdriver.Firefox(firefox_profile=profile,executable_path="D:/Bots/bin/geckodriver.exe")
+
 
 counter = 0
 #Try catch timeouts, 5 times
@@ -61,7 +62,7 @@ while counter < 5:
         #Go to Video Draw
         driver.get("https://pickmypostcode.com/video/?postcode=SK10+3PX&email=george.steel92\%40gmail.com#")
         
-        driver.find_element_by_css_selector(".brid-overlay-play-button.brid-button").click()
+        #driver.find_element_by_css_selector(".brid-overlay-play-button.brid-button").click()
 
         #Waiting for element to appear 
         sleep(60)
@@ -74,7 +75,7 @@ while counter < 5:
 
         #Finished, end loop
         break
-    except TimeoutException as te:
+    except Exception as te:
         print(te)
         print("Trying again...")
         counter += 1

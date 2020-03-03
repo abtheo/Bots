@@ -1,7 +1,6 @@
 #Runtime: 4pm
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.common.exceptions import TimeoutException
 
 from time import sleep
@@ -10,15 +9,17 @@ import random
 import pathlib
 import json
 
-birthday = "29/06/78" 
+birthday = "01/01/97" 
 
 config = ""
 with open(str(pathlib.Path(__file__).parent) + '/config.json') as config_file:
     config = json.load(config_file)
         
-#Init and connect to homepage
-driver = webdriver.Chrome(ChromeDriverManager().install())
-driver.implicitly_wait(5)   
+#Load Firefox profile
+profile = webdriver.FirefoxProfile("C:/Users/GE60 2PE/AppData/Roaming/Mozilla/Firefox/Profiles/wqatwvdj.default-release")
+driver = webdriver.Firefox(firefox_profile=profile,executable_path="D:/Bots/bin/geckodriver.exe")
+
+#Get
 driver.get("https://www.euro-millions.com/sign-in")
 
 #Let page load
@@ -33,7 +34,7 @@ driver.find_element_by_css_selector("input#Submit").submit()
 driver.get("https://www.euro-millions.com/free-lottery/play?lottery=daily")
 sleep(2)
 
-driver.find_element_by_css_selector("a[title='Quick Pick']").click()
+driver.find_element_by_css_selector("input[value='Quick Pick']").click()
 sleep(2)
 driver.find_element_by_css_selector("input#submit_ticket").click()
 

@@ -14,8 +14,10 @@ with open(str(pathlib.Path(__file__).parent) + '/config.json') as config_file:
 winners = ["😍","😜","💩","🤑","😂"]
 
 #Init and connect to emoji homepage
-driver = webdriver.Chrome(ChromeDriverManager().install())
-driver.implicitly_wait(5)
+#Load Firefox profile
+profile = webdriver.FirefoxProfile("C:/Users/GE60 2PE/AppData/Roaming/Mozilla/Firefox/Profiles/wqatwvdj.default-release")
+driver = webdriver.Firefox(firefox_profile=profile,executable_path="D:/Bots/bin/geckodriver.exe")
+
 driver.get("https://freemojilottery.com/")
 
 #Let page load
