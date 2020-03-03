@@ -1,0 +1,21 @@
+Generated File. Do not edit.
+
+[HEADER]
+Version|0.19t|$
+Arch|x86_64-msvc|$
+
+[PLUGINS]
+
+[INVALID]
+C:\Program Files\Microsoft Silverlight\5.1.50918.0\npctrl.dll|$
+1540322788000|$
+C:\Program Files\Microsoft Silverlight\5.1.50918.0\npctrlui.dll|$
+1540322788000|$
+C:\Program Files\Java\jre1.8.0_201\bin\plugin2\npjp2.dll|$
+1550439401474|$
+C:\Program Files\Java\jre1.8.0_201\bin\dtplugin\npdeployJava1.dll|$
+1550439401106|$
+C:\Users\GE60 2PE\AppData\Local\Hola\firefox_hola\app\vlc\npvlc.dll|$
+1450645146029|$
+C:\Users\GE60 2PE\AppData\Local\Hola\firefox_hola\app\flash\NPSWF32_18_0_0_232.dll|$
+1450645148193|$

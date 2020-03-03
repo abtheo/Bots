@@ -1,0 +1,11 @@
+8
+
+https://dev.to/
+https://dev.to/serviceworker.js
+true
+{03a9effa-d333-4bf2-b3b3-23b71604a47c}
+0
+1583206307005332
+1583206307006099
+1583206306895232
+#

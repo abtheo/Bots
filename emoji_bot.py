@@ -11,7 +11,7 @@ with open(str(pathlib.Path(__file__).parent) + '/config.json') as config_file:
     config = json.load(config_file)
 
 #Coding with emojis LOL
-winners = "😍😜💩🐧😂"
+winners = ["😍","😜","💩","🤑","😂"]
 
 #Init and connect to emoji homepage
 driver = webdriver.Chrome(ChromeDriverManager().install())
@@ -32,10 +32,9 @@ sleep(2)
 
 #Scrape winning emojis
 emojis = driver.find_elements_by_css_selector(".results-panel >* .emojione")
-emoji_str = "".join([e.get_attribute('standby') for e in emojis])
 
 #Mail for win
-if emoji_str == winners:
+if set(emojis) == set(winners):
     print("Won the Emoji Lottery Main Draw!")
     send_winner_mail("Won the Emoji Lottery Main Draw!")
 
@@ -47,10 +46,9 @@ fivers_rows = driver.find_elements_by_css_selector("#fiversDraw >* .freemoji-dis
 for row in fivers_rows:
     #Find string of 5 emojis
     emojis = row.find_elements_by_css_selector(".emojione")
-    emoji_str = "".join([e.get_attribute('standby') for e in emojis])
     
     #Mail winners
-    if emoji_str == winners:
+    if set(emojis) == set(winners):
         print("Won the Emoji Lottery Fiver Draw!")
         send_winner_mail("Won the Emoji Lottery Fiver Draw!")
         
