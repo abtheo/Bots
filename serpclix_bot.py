@@ -1,17 +1,9 @@
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.common.exceptions import TimeoutException
-
 from time import sleep
-from winner import send_winner_mail
-import random
-import pathlib
-import json
- # for adblockplus
 
-atag = None
 #Load Firefox profile
 profile = webdriver.FirefoxProfile("C:/Users/GE60 2PE/AppData/Roaming/Mozilla/Firefox/Profiles/wqatwvdj.default-release")
 profile.add_extension("C:/Users/GE60 2PE/AppData/Roaming/Mozilla/Firefox/Profiles/wqatwvdj.default-release/extensions/dev@serpclix.com.xpi")
@@ -71,6 +63,9 @@ while not clickFlag:
     except Exception as e:
         print(e)
         continue
+
+
+
 """
 If we need to start the addon programatically:
 #driver.start_session()
