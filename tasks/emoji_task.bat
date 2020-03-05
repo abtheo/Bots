@@ -1,0 +1,1 @@
+python "C:\Bots\emoji_bot.py"

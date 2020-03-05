@@ -7,7 +7,7 @@ import json
 import pathlib
 
 config = ""
-with open(str(pathlib.Path(__file__).parent) + '/config.json') as config_file:
+with open('C:/Bots/config.json') as config_file:
     config = json.load(config_file)
 
 #Coding with emojis LOL
@@ -15,8 +15,10 @@ winners = ["😍","😜","💩","🤑","😂"]
 
 #Init and connect to emoji homepage
 #Load Firefox profile
-profile = webdriver.FirefoxProfile("C:/Users/GE60 2PE/AppData/Roaming/Mozilla/Firefox/Profiles/wqatwvdj.default-release")
-driver = webdriver.Firefox(firefox_profile=profile,executable_path="D:/Bots/bin/geckodriver.exe")
+profile = webdriver.FirefoxProfile("C:/Users/georg/AppData/Roaming/Mozilla/Firefox/Profiles/ul5p82rs.default-release")
+driver = webdriver.Firefox(firefox_profile=profile,
+                           executable_path="C:/Bots/bin/geckodriver.exe",
+                           log_path='C:/Bots/logs/emoji.log')
 
 driver.get("https://freemojilottery.com/")
 

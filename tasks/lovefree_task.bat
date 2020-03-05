@@ -1,0 +1,1 @@
+python "C:\Bots\lovefree_bot.py"

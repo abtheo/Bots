@@ -10,15 +10,20 @@ import random
 import pathlib
 import json
 
-birthday = "29/06/78" 
+birthday = "01/01/97" 
 
 config = ""
 with open(str(pathlib.Path(__file__).parent) + '/config.json') as config_file:
     config = json.load(config_file)
-        
+
+#Load Firefox profile
+profile = webdriver.FirefoxProfile("C:/Users/georg/AppData/Roaming/Mozilla/Firefox/Profiles/ul5p82rs.default-release")
+driver = webdriver.Firefox(firefox_profile=profile,
+                           executable_path="C:/Bots/bin/geckodriver.exe",
+                           log_path='C:/Bots/logs/birthday.log')
+      
 #Init and connect to homepage
-driver = webdriver.Chrome(ChromeDriverManager().install())
-driver.implicitly_wait(5)   
+  
 driver.get("https://www.freebirthdatelottery.com/birthdate-draw/")
 
 #Let page load
@@ -26,11 +31,12 @@ sleep(2)
 
 #Login button click
 driver.find_element_by_css_selector(".hentry.page.post-13.status-publish.type-page a").click()
-
+sleep(2)
 #Fill Login form
 driver.find_element_by_css_selector("input#user_login").send_keys("george.steel92@gmail.com")
 driver.find_element_by_css_selector("input#user_pass").send_keys(config['birthday_password'])
 driver.find_element_by_css_selector("input#wp-submit").submit()
+sleep(5)
 
 #Check Birthday
 driver.get("https://www.freebirthdatelottery.com/birthdate-draw/")

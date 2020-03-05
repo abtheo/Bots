@@ -1,0 +1,1 @@
+python "C:\Bots\birthday_bot.py"

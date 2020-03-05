@@ -1,0 +1,1 @@
+python "C:\Bots\euromills_bot.py"

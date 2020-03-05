@@ -8,16 +8,15 @@ from winner import send_winner_mail
 import random
 import pathlib
 import json
-
-birthday = "01/01/97" 
-
 config = ""
 with open(str(pathlib.Path(__file__).parent) + '/config.json') as config_file:
     config = json.load(config_file)
         
 #Load Firefox profile
-profile = webdriver.FirefoxProfile("C:/Users/GE60 2PE/AppData/Roaming/Mozilla/Firefox/Profiles/wqatwvdj.default-release")
-driver = webdriver.Firefox(firefox_profile=profile,executable_path="D:/Bots/bin/geckodriver.exe")
+profile = webdriver.FirefoxProfile("C:/Users/georg/AppData/Roaming/Mozilla/Firefox/Profiles/ul5p82rs.default-release")
+driver = webdriver.Firefox(firefox_profile=profile,
+                           executable_path="C:/Bots/bin/geckodriver.exe",
+                           log_path='C:/Bots/logs/euromills.log')
 
 #Get
 driver.get("https://www.euro-millions.com/sign-in")

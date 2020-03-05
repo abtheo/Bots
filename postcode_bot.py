@@ -11,9 +11,10 @@ postcode = 'SK10 3PX'
 
 #Init and connect to postcode homepage
 #Load Firefox profile
-profile = webdriver.FirefoxProfile("C:/Users/GE60 2PE/AppData/Roaming/Mozilla/Firefox/Profiles/wqatwvdj.default-release")
-driver = webdriver.Firefox(firefox_profile=profile,executable_path="D:/Bots/bin/geckodriver.exe")
-
+profile = webdriver.FirefoxProfile("C:/Users/georg/AppData/Roaming/Mozilla/Firefox/Profiles/ul5p82rs.default-release")
+driver = webdriver.Firefox(firefox_profile=profile,
+                           executable_path="C:/Bots/bin/geckodriver.exe",
+                           log_path='C:/Bots/logs/postcode.log')
 
 counter = 0
 #Try catch timeouts, 5 times
@@ -57,12 +58,12 @@ while counter < 5:
         # #Click random answer
         # random.choice(survey_btns).click()
         #Submit Survey
-        # driver.find_element_by_css_selector(".btn.btn__xs.btn-loader").click()
+        #driver.find_element_by_css_selector(".btn.btn__xs.btn-loader").click()
 
         #Go to Video Draw
         driver.get("https://pickmypostcode.com/video/?postcode=SK10+3PX&email=george.steel92\%40gmail.com#")
         
-        #driver.find_element_by_css_selector(".brid-overlay-play-button.brid-button").click()
+        driver.find_element_by_css_selector(".brid-poster").click()
 
         #Waiting for element to appear 
         sleep(60)
