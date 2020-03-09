@@ -4,6 +4,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from time import sleep
 from winner import send_winner_mail
 import json
+from datetime import datetime
 import pathlib
 
 config = ""
@@ -58,4 +59,9 @@ for row in fivers_rows:
         
 #Close and exit
 driver.close()
+
+#Log last run time
+with open('C:/Bots/logs/emoji_runs.log', "w") as logfile:
+    logfile.write(str(datetime.now()))
+
 exit()
