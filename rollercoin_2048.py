@@ -8,7 +8,7 @@ from time import sleep
 import random
 from PIL import Image
 
-redeem_btn   = Image.open(r"coin_imgs/gain.png")
+redeem_btn   = Image.open(r"coin_imgs/blu.png")
 
 def find_matches(haystack, needle):
     arr_h = np.asarray(haystack)
@@ -51,6 +51,7 @@ while True:
         img = np.array(pyautogui.screenshot())
 
         coords = find_matches(img, redeem_btn)
+        coords = coords[:min(len(coords),5)]
         for x, y in coords:
             print("Clicking redeem @ ", x, y)
             pyautogui.click(x,y)
@@ -66,6 +67,7 @@ while True:
         #     draw = np.random.choice(["up","right","down","left"], 1, p=[0.05, 0.1, 0.45, 0.4])
         #     pyautogui.press(draw)
         #     sleep(0.2)
+
         print("Awaiting 95 for redeem")
         sleep_plus(95)
         print("Click Play Again to return to main screen. Sleeping for 180")
@@ -85,6 +87,7 @@ while True:
     draw = np.random.choice(["up","right","down","left"], 1, p=[0.05, 0.1, 0.45, 0.4])
     pyautogui.press(draw)
     sleep(0.2)
+
     # count +=1
 
     # if count > 99999:
