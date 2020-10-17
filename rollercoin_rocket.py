@@ -5,8 +5,7 @@ import cv2
 from time import sleep
 
 
-def play_rocket():
-    while True:
-        pyautogui.click()
-        sleep(np.random.rand())
-    
+
+while True:
+    pyautogui.click()
+    sleep(np.random.rand())
