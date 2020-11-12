@@ -7,43 +7,41 @@ from PIL import Image
 import random
 import time
 import mss
-
-# def resolution_conv():
-#     1372 * x = 1920
-#     700 * y = 1080
+from scipy.spatial import distance
+#from rollercoin_2048 import play_2048
 
 
 redeem_btn = Image.open(r"coin_imgs/blu.png")
 def redeem_and_return():
-    # sleep(45)
+    sleep(4)
     img = np.array(pyautogui.screenshot())
     try:
         x, y = find_matches(img, redeem_btn)[0]
-    #Verification failed, force reload
     except:
-        print("Failed to redeem, hard refreshing")
-        pyautogui.press('f6') #urlbar
-        sleep(0.1)
-        pyautogui.typewrite("https://rollercoin.com/game/choose_game")
-        sleep(0.1)
+        print('Failed to Redeem, hard refresh')
+        pyautogui.press('esc')
+        sleep(1)
+        pyautogui.press('f6')
+        sleep(1)
+        pyautogui.typewrite('https://rollercoin.com/game/choose_game')
+        sleep(1)
         pyautogui.press('enter')
-        sleep_plus(90)
         return False
-
+    
     print("Clicking redeem @ ", x, y)
     pyautogui.click(x,y)
     sleep_plus(0.5)
-    print("Awaiting 35 for redeem")
-    sleep_plus(35)
+    print("Awaiting redeem...")
+    sleep_plus(25)
     print("Click Play Again to return to main screen.")
     pyautogui.scroll(999, x=0,y=0)
     sleep(1.5)
-    pyautogui.click(1138, 686) # Play again
+    pyautogui.click(800, 515) # Play again
     return True
 
 def play_rocket():
     for i in range(3):
-        pyautogui.click(1120, 250)#Out of the way
+        pyautogui.click(185, 250)#Out of the way
 
     timeout = time.time() + 40
     while time.time() < timeout:
@@ -54,122 +52,50 @@ def play_rocket():
     sleep_plus(6)
     return True
 
-def play_blaster():
-    timeout = time.time() + 40
-    # pyautogui.keyDown("space")
-    count = 0
-    while time.time() < timeout:
-        #Shoot up always
-        pyautogui.keyDown("space")
-        pyautogui.keyDown("up")
-
-        #Move to sides 
-        t = count % 50
-        if t > 10 and t <= 15:
-            pyautogui.keyUp("left")
-            pyautogui.keyDown("right")
-        elif t > 25 and t <= 30:
-            pyautogui.keyUp("right")
-            pyautogui.keyDown("left")
-        elif t > 40 and t <= 50:
-            coin = np.random.rand()
-            if coin >= 0.5:
-                pyautogui.keyUp("right")
-                pyautogui.keyDown("left")
-            else:
-                pyautogui.keyUp("left")
-                pyautogui.keyDown("right")
-            
-
-
-        count += 1
-
-        # sleep(0.1)
-        # leftright = 1
-        # for i in range(100):
-        #     sleep(0.05)
-        #     pyautogui.press("up")
-        #     sleep(0.05)
-        #     if leftright % 2 == 0:
-        #         sleep(0.05)
-        #         pyautogui.press("left")
-        #     else:
-        #         sleep(0.05)
-        #         pyautogui.press("right")
-            
-        # pyautogui.keyUp("right")
-        # pyautogui.keyUp("left")
-        # leftright += 1
-
-    #free the keys
-    pyautogui.keyUp("up")
-    pyautogui.keyUp("space")
-    return True
-
-def play_2048():
-    timeout = time.time() + 60 #+ random.randint(5,600)
-    while time.time() < timeout:
-            
-        draw = np.random.choice(["up","right","down","left"], 1, p=[0.05, 0.1, 0.45, 0.4])
-        pyautogui.press(draw)
-        # sleep(0.2)
-
-    return True
-
-def play_coinmatch():    
-    timeout = time.time() + 60
-
-    upright = 1
-    while time.time() < timeout:
-        #Row grid spaces
-        for x in range(535, (1495-120), 120):
-            for y in range((110+120), (1070-120), 120):
-                #Pick action and click block
-                # action = np.random.choice(["up","right","down","left"], 1)
-
-
-                #Avoid middle
-                if (x > 500 and x < 1455) and (y > 650 and y < 900):
-                    continue
-
-
-                pyautogui.click(x, y)
-                sleep(0.1)
-                if upright % 2 == 0:
-                    pyautogui.click(x+120, y)
-                else:
-                    pyautogui.click(x, y-120)
-                
-            upright += 1
-    
-    return True
-
-def play_coin_flip_advanced():
-    tile_img = Image.open(r"coin_imgs/coinflip_back.png")
+tile_img = Image.open(r"coin_imgs/coinflip_back.png")
+def play_coin_flip():
 
     #Locate coins in grid
-    img = pyautogui.screenshot()
+    sleep(2.5)
+    img = np.array(pyautogui.screenshot())
     sleep(0.5)
     #Lose focus to freeze timer
-    pyautogui.press("win")
-
+    pyautogui.press(r"'")
     grid = find_matches(img, tile_img)
-    print(f"Found {len(grid)} matches")
-
+    #print(f"Found {len(grid)} matches")
+    
     #Filter out close duplicates from grid
-    prev_x, prev_y = grid[0][0], grid[0][1]
-    thin_grid = [grid[0]]
-    for x,y in grid[1:]:
-        if (y > prev_y + 2) or (y < prev_y):
-            thin_grid.append((x,y))
+    try:
+        prev_x, prev_y = grid[0][0], grid[0][1]
+    except:
+        sleep(60)
+        return False
+    
+##    pyautogui.press(r"'")
+##    thin_grid = [grid[0]]
+##    for x,y in grid[1:]:
+##        if ((y > prev_y + 20) or (y < prev_y -20)):
+##            thin_grid.append((x,y))
+##
+##        prev_x, prev_y = x, y
+##
+##    grid = thin_grid
+##    print(f"Reduced to {len(grid)} matches")
 
-        prev_x, prev_y = x, y
-
-    grid = thin_grid
+    pyautogui.press(r"'")
+    #all_distances = [a if distance.euclidean(a, b) > 2 else None for a in grid for b in grid]
+    #print(all_distances)
+    distances = []
+    for i, tile in enumerate(grid):
+        distances += [j for j, b in enumerate(grid) \
+                       if distance.euclidean(tile, b) < 5.0 and j > i]
+        
+    distances = np.array(list(set(distances)), dtype=int)
+    grid = [grid[i] for i in range(len(grid)) if i not in distances]
     print(f"Reduced to {len(grid)} matches")
 
     #Resume
-    pyautogui.click(150, 150)
+    pyautogui.click(10, 10)
 
     with mss.mss() as sct:
         coins = []
@@ -178,7 +104,7 @@ def play_coin_flip_advanced():
             pyautogui.click(*tile)
             sleep(0.5)
             #Get coloured pixel
-            bbox = (tile[0], tile[1], tile[0] + 8, tile[1] + 8)
+            bbox = (tile[0], tile[1], tile[0] + 2, tile[1] + 2)
             sct_img = sct.grab(bbox)
             coin_pix = np.array(sct_img.pixels)
             # mss.tools.to_png(sct_img.rgb, sct_img.size, output=f"flip/{tile[0]}_{tile[1]}.png")
@@ -201,13 +127,64 @@ def play_coin_flip_advanced():
     sleep(1)
     return True
 
+def play_2048():
+    timeout = time.time() + 56 #+ random.randint(5,600)
+    while time.time() < timeout:
+            
+        draw = np.random.choice(["up","right","down","left"], 1, p=[0.05, 0.1, 0.45, 0.4])
+        pyautogui.press(draw)
+
+    print("Timeout hit, sleeping for 6 more")
+    sleep_plus(6)
+    
+    return True
+
+def play_coinmatch():    
+    timeout = time.time() + 65
+
+    upright = 1
+    while time.time() < timeout:
+        #Row grid spaces
+        for x in range(380, (985-85), 85):
+            for y in range((80+85), (625-85), 85):
+                #Pick action and click block
+                # action = np.random.choice(["up","right","down","left"], 1)
+
+
+                #Avoid middle
+                if (x > 300 and x < 950) and (y > 460 and y < 650):
+                    continue
+
+
+                pyautogui.click(x, y)
+                sleep(0.1)
+                if upright % 2 == 0:
+                    pyautogui.click(x+85, y)
+                else:
+                    pyautogui.click(x, y-85)
+                
+                upright += 1
+        # img = np.array(pyautogui.screenshot())
+        # matches = find_matches(img, redeem_btn)
+        # if len(matches) > 0:
+        #     print("Found redeem button @", matches)
+        #     return True
+
+    sleep_plus(6)
+    
+    return True
+
+
 def select_game(sx, sy, fx, fy):
+    print("Playing Game!")
     pyautogui.click(sx, sy)
+    sleep(0.5)
     pyautogui.click(sx, sy)
-    sleep_plus(2)
+    sleep(2.5)
     pyautogui.click(fx, fy)#Play fullscreen
+    sleep(0.5)
     pyautogui.click(fx, fy)#Play fullscreen MATCH
-    sleep(3)
+    sleep(2.5)
     return True
 
 def sleep_plus(n):
@@ -239,48 +216,36 @@ def find_matches(haystack, needle):
 
 print("Starting...")
 sleep(5)
-
 #Screenshot to find button positions
-home = np.array(pyautogui.screenshot())
-print("Screenshot taken!")
+##home = np.array(pyautogui.screenshot())
+##print("Screenshot taken!")
+##
+###Find flags
+##flags   = Image.open(r"coin_imgs/flag_2.png")
+##coords = find_matches(home, flags)
+###Zip gameID to button positions
+##games = ["coinclick", "cryptonoid", "2048", "token", "coinmatch", "flip", "rocket", "hamster", "drham"]
+##buttons = dict(zip(games, coords))
 
-#Find flags
-# flags  = Image.open(r"coin_imgs/flag_1920.png")
-# coords = find_matches(home, flags)
-# #Zip gameID to button positions
-# games = ["coinclick", "cryptonoid", "2048", "surfer", "blaster", "coinmatch", "coinflip", "rocket", "hamster", "drham"]
-# buttons = dict(zip(games, coords))
-# print(buttons)
-
-#lazy lol
-# buttons = {'coinclick': (384, 458), 'cryptonoid': (384, 651), '2048': (384, 843), 'surfer': (384, 1036), 'blaster': (827, 458), 'coinmatch': (827, 651), 'coinflip': (827, 843), 'rocket': (1270, 458), 'hamster': (1270, 651), 'drham': (1270, 843)}
-buttons = {'coinclick': (511, 367), 'cryptonoid': (511, 521), '2048': (511, 675), 'surfer': (511, 829), 'blaster': (865, 367), 'coinmatch': (865, 521), 'coinflip': (865, 675), 'rocket': (1220, 367), 'hamster': (1220, 521), 'drham': (1220, 675)}
+##print(buttons)
+buttons = {'coinclick': (235, 340), 'cryptonoid': (235, 494), '2048': (235, 648), 'token': (589, 340), 'coinmatch': (589, 494), 'coinflip': (589, 648), 'rocket': (944, 340), 'hamster': (944, 494), 'drham': (944, 648)}
 #MAIN LOOP
 while True:
-    sleep_plus(1)
     #Coinflip
-    print("Playing CoinFlip")
-    select_game(buttons["coinflip"][0], buttons["coinflip"][1],930,460)
-    play_coin_flip_advanced()
+    print('Coinflip:')
+    select_game(buttons["coinflip"][0], buttons["coinflip"][1], 670, 440)
+    play_coin_flip()
     redeem_and_return()
-    sleep_plus(45)
-
-    #Blaster!
-    # print("Playing Blaster!")
-    # select_game(buttons["blaster"][0], buttons["blaster"][1],930,600)
-    # play_blaster()
-    # redeem_and_return()
-    # sleep_plus(45)
+    sleep(180)
     #Coinmatch
-    # print("Playing Coinmatch!")
-    # select_game(buttons["coinmatch"][0], buttons["coinmatch"][1], 930,562)
-    # play_coinmatch()
-    # redeem_and_return()
-    # sleep_plus(45)
+##    select_game(buttons["coinmatch"][0], buttons["coinmatch"][1], 670, 400)
+##    play_coinmatch()
+##    redeem_and_return()
+##    sleep(10)
     #2048
-    # print("Playing 2048!")
-    # select_game(buttons["2048"][0], buttons["2048"][1],930,600)
-    # play_2048()
-    # redeem_and_return()
-    # sleep_plus(90)
+    print('2048:')
+    select_game(buttons["2048"][0], buttons["2048"][1],670,440)
+    play_2048()
+    redeem_and_return()
+    sleep(180)
 
